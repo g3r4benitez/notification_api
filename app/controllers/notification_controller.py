@@ -1,41 +1,35 @@
-import importlib
-
 from fastapi import APIRouter
 from starlette import status
 
 from app.repositories import user_repository
 from app.repositories import notification_repository
-
+from app.services.notification_service import get_channel
+from app.models.user import User
+from app.models.notification import Notification
+from app.core.celery_worker import send_notification_task
 
 router = APIRouter()
-
-
-def get_channel(channel_name: str):
-    if channel_name == 'sms':
-        return 'sms'
-    if channel_name == 'email':
-        return 'email'
-    if channel_name == 'push':
-        return 'push'
-    return 'notification'
-
-
 
 @router.post(
     "",
     status_code=status.HTTP_201_CREATED,
     dependencies=[]
 )
-async def post_create(category_id: int, message: str):
-    users = user_repository.get_users_by_category(category_id)
+async def send_by_category(notification: Notification):
+    users = user_repository.get_users()
+
     for user in users:
-        channels = user.channels.split(",")
-        for channel_name in channels:
-            channel_type = get_channel(channel_name)
-            service = importlib.import_module(f"app.services.{channel_type}_service")
-            channel = service.get_channel()
-            channel.register_notification(message, user)
-    return None
+        obj_user = User(**user)
+        if notification.category in user['subscribed']:
+            channels = user['channels']
+            for channel_name in channels:
+                send_notification_task.delay(obj_user, notification, channel_name)
+                #channel_type = get_channel(channel_name)
+                #channel_service = importlib.import_module(f"app.services.{channel_type}_service")
+                #service_notification = channel_service.get_service()
+                #service_notification.send_notification(notification.message, obj_user)
+
+    return notification
 
 
 @router.get(

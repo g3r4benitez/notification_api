@@ -17,7 +17,7 @@ Python 3.9+
 docker-compose up
 ```
 
-2. Go to [http://localhost:9009/index](http://localhost:9009/index).
+2. Go to [http://localhost:9009/api/ping](http://localhost:9009/api/ping).
 
 ## Architecture
 

@@ -25,7 +25,6 @@ def start_app() -> FastAPI:
     # Error handlers
     fast_app.add_exception_handler(HTTPCustomException, exception_handler)
     fast_app.add_exception_handler(status.HTTP_500_INTERNAL_SERVER_ERROR, fatal_exception_handler)
-    fast_app.mount("/static", StaticFiles(directory="static"), name="static")
     return fast_app
 
 

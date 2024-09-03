@@ -1,7 +1,9 @@
+import json
 from sqlalchemy.exc import IntegrityError
 from fastapi_sqlalchemy import db
 
 from app.models import user as models
+from app.models.user import User
 from app.models.orm import user as orm
 from app.exceptions.general_exeptions import ConflictExeption
 
@@ -32,6 +34,15 @@ def get_users_by_category(category_id):
     # Here I have to return users related with categories
     # todo: resolve filter by category_id
     return db.session.query(orm.User).all()
+
+def get_users() -> [User]:
+    with open('app/data/users.json', 'r') as file:
+        data = json.load(file)
+        return data['users']
+
+
+
+    
 
 
 def update(email: str, obj_user: models.User):

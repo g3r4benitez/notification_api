@@ -1,19 +1,21 @@
-from app.models.notification import Notification
-from app.repositories import notification_repository
 from app.models.user import User
-from datetime import datetime
 
 
 class BaseNotification:
     name: str
     nick: str
 
-    def send_notification(self, message, user):
-        pass
+    def send_notification(self, message: str, user: User):
+        print(f'Sending general notification with: {message} to: {user.name}')
 
-    def register_notification(self, message: str, user: User):
-        message = f"Sending a message:'{message}', to: {user.name}"
-        obj_notification = Notification(message=message, channel=self.name, date_creation=datetime.now())
-        notification_repository.create(notification=obj_notification)
+def get_service():
+    return BaseNotification()
 
-
+def get_channel(channel_name: str):
+    if channel_name == 'sms':
+        return 'sms'
+    if channel_name == 'email':
+        return 'email'
+    if channel_name == 'push':
+        return 'push'
+    return 'notification'

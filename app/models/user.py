@@ -3,11 +3,11 @@ from typing import List
 
 
 class User(BaseModel):
+    ID: int
     name: str
     email: EmailStr
     phone_number: int
-    subscribed: List[int]
-    channels: str
+    subscribed: List[str]
+    channels: List[str]
 
-    class Config:
-        orm_mode = True
+

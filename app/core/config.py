@@ -1,5 +1,4 @@
 import os
-import psycopg2
 
 from starlette.config import Config
 
@@ -31,20 +30,3 @@ def get_celery_broker_url():
 CELERY_BROKER_URL: str = get_celery_broker_url()
 
 
-def get_connection():
-
-    host = _config("DB_HOST", cast=str, default="")
-    port = _config("DB_PORT", cast=str, default="")
-    database = _config("DB_NAME", cast=str, default="")
-    user = _config("DB_USERNAME", cast=str, default="")
-    password = _config("DB_PASSWORD", cast=str, default="")
-
-    conn = psycopg2.connect(
-        host=host,
-        port=port,
-        database=database,
-        user=user,
-        password=password
-    )
-
-    return conn

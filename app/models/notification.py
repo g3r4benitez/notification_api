@@ -3,9 +3,5 @@ from datetime import datetime
 
 
 class Notification(BaseModel):
-    channel: str
+    category: str
     message: str
-    date_creation: datetime
-
-    class Config:
-        orm_mode = True
