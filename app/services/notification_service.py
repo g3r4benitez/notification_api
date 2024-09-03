@@ -5,8 +5,9 @@ class BaseNotification:
     name: str
     nick: str
 
-    def send_notification(self, message: str, user: User):
-        print(f'Sending general notification with: {message} to: {user.name}')
+    def send_notification(self,user_id:int, message: str):
+        user = User(ID=user_id)
+        print(f'Sending general notification with: {message} to: {user["name"]}')
 
 def get_service():
     return BaseNotification()

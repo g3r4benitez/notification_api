@@ -19,15 +19,12 @@ async def send_by_category(notification: Notification):
     users = user_repository.get_users()
 
     for user in users:
-        obj_user = User(**user)
+        # obj_user = User(**user)
         if notification.category in user['subscribed']:
             channels = user['channels']
             for channel_name in channels:
-                send_notification_task.delay(obj_user, notification, channel_name)
-                #channel_type = get_channel(channel_name)
-                #channel_service = importlib.import_module(f"app.services.{channel_type}_service")
-                #service_notification = channel_service.get_service()
-                #service_notification.send_notification(notification.message, obj_user)
+                send_notification_task(user['ID'], notification.message, channel_name)
+                #send_notification_task.delay(user['ID'], notification.message, channel_name)
 
     return notification
 

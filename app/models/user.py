@@ -10,4 +10,12 @@ class User(BaseModel):
     subscribed: List[str]
     channels: List[str]
 
+    def __dict__(self):
+        return {
+            "ID": self.ID,
+            "name": self.name,
+            "email": self.email,
+            "phone_number": self.phone_number
+        }
+
 

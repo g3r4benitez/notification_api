@@ -14,9 +14,9 @@ celery_log = get_task_logger(__name__)
     max_retries=10,
     default_retry_delay=60
 )
-def send_notification_task(obj_user: User, notification: Notification, channel_name: str,  ):
+def send_notification_task(user_id: int, message: str, channel_name: str,  ):
     celery_log.info(f"a log message")
     channel_type = get_channel(channel_name)
     channel_service = importlib.import_module(f"app.services.{channel_type}_service")
     service_notification = channel_service.get_service()
-    service_notification.send_notification(notification.message, obj_user)
+    service_notification.send_notification(user_id, message)
