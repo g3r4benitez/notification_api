@@ -1,0 +1,10 @@
+amqp==5.1.1
+celery==5.3.0
+dependency-injector==4.37.0
+email-validator==2.0.0.post2
+fastapi==0.96.0
+pydantic==1.10.9
+SQLAlchemy==2.0.15
+starlette==0.27.0
+typing-extensions==4.6.3
+uvicorn==0.22.0

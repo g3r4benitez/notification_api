@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 9009 --reload
+    ports:
+      - "9009:9009"
+    volumes:
+      - .:/code
+
+
+
