@@ -8,6 +8,6 @@ class User(SQLModel, table=True):
     name: str
     email: EmailStr
     phone_number: int
-    subscribed: str
-    channels: str
+    subscribed: str | None
+    channels: str | None
 
