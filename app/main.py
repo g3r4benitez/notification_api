@@ -1,16 +1,25 @@
 import uvicorn
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from app.core.initializer import init
 from app.api.routes.router import api_router
 from app.core.config import (APP_NAME, APP_VERSION, IS_DEBUG)
 from app.core.error_handler import HTTPCustomException, exception_handler, fatal_exception_handler
 
+from app.core.database import init_db
+
+from app.models.user import User
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
 
 def start_app() -> FastAPI:
-    fast_app = FastAPI(title=APP_NAME, version=APP_VERSION, debug=IS_DEBUG)
+    fast_app = FastAPI(title=APP_NAME, version=APP_VERSION, debug=IS_DEBUG, lifespan=lifespan)
     # Routes
     fast_app.include_router(api_router)
 
@@ -25,6 +34,7 @@ def start_app() -> FastAPI:
     # Error handlers
     fast_app.add_exception_handler(HTTPCustomException, exception_handler)
     fast_app.add_exception_handler(status.HTTP_500_INTERNAL_SERVER_ERROR, fatal_exception_handler)
+    init_db()
     return fast_app
 
 

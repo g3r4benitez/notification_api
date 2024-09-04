@@ -11,6 +11,16 @@ services:
     volumes:
       - .:/code
 
+  rabbit:
+    image: rabbitmq:3.8.14-alpine
+    ports:
+      - "4369:4369"
+      - "5672:5672"
+      - "25672:25672"
+      - "15672:15672"
+    volumes:
+      - ./volumes/rabbitmq:/rabbitmq/data
+
   celery:
     build:
       context: .
@@ -22,16 +32,6 @@ services:
       CELERY_BROKER_URL: amqp://guest:guest@rabbit:5672//
     depends_on:
       - rabbit
-
-  rabbit:
-    image: rabbitmq:3.8.14-alpine
-    ports:
-      - "4369:4369"
-      - "5672:5672"
-      - "25672:25672"
-      - "15672:15672"
-    volumes:
-      - ./volumes/rabbitmq:/rabbitmq/data
 
   redis:
     image: redis:latest

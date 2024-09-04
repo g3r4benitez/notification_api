@@ -1,6 +1,6 @@
 {
 "users": [{
-  "ID": 1,
+  "id": 1,
   "name": "Juan Carlos",
   "email": "juancarlos@gilasw.com",
   "phone_number": 1123993344,
@@ -8,7 +8,7 @@
   "channels": ["sms", "email"]
 },
   {
-  "ID": 2,
+  "id": 2,
   "name": "Maria Clara",
   "email": "maria.clara@gilasw.com",
   "phone_number": 1123993345,

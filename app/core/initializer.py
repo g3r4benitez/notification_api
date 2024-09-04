@@ -9,16 +9,33 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 from app.core.config import DB_URL
 from app.core.containers import (ContainerService)
 from app import controllers
+from app.repositories.user_repository import UserRepository, user_repository
+from app.models.user import User
+
 
 
 def init(app: FastAPI):
     """Load 3rd parties libs init config, After FastApi"""
-    __init_db(app)
+    __fill_db()
     app.containers = start_containers()
 
 
-def __init_db(app: FastAPI):
-    app.add_middleware(DBSessionMiddleware, db_url=DB_URL, engine_args={})
+
+
+def __fill_db():
+    users_json = UserRepository.get_users_from_json()
+    for user_json in users_json:
+        user = UserRepository.get_user(user_id=user_json['id'])
+        if user is None:
+            user = User()
+            user.id = user_json['id']
+            user.name = user_json['name']
+            user.email = user_json['email']
+            user.phone_number = user_json['phone_number']
+            user.subscribed = ",".join(user_json['subscribed'])
+            user.channels = ",".join(user_json['channels'])
+            user_repository.create_user(user)
+
 
 
 def start_containers() -> Dict[str, DynamicContainer]:

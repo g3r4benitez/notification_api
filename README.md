@@ -9,13 +9,19 @@ Python 3.9+
 
 ## Project
 
-### Run It
+### Setup environment
+1. copy .env.example to .env
+2. set environment variables
+
+### Run It: option 1 with docker
 
 1. Start the project 
 
 ```sh
 docker-compose up
 ```
+
+### Run It: option 2 
 
 2. Go to [http://localhost:9009/api/ping](http://localhost:9009/api/ping).
 

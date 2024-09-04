@@ -10,6 +10,5 @@ class SmsService(BaseNotification):
     name = 'Sms'
     nick = "Sms message"
 
-    def send_notification(self,user_id:int, message: str):
-        user = User(ID=user_id)
-        print(f'Sending sms message with: {message} to: {user["phone_number"]}')
+    def send_notification(self,user: User, message: str):
+        print(f'Sending sms message with: {message} to: {user.phone_number}')

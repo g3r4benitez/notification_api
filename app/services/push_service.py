@@ -9,6 +9,5 @@ class PushService(BaseNotification):
     name = 'Push'
     nick = "Push message"
 
-    def send_notification(self,user_id:int, message: str):
-        user = User(ID=user_id)
-        print(f'Sending push with: {message} to: {user["phone_number"]}')
+    def send_notification(self,user: User, message: str):
+        print(f'Sending push with: {message} to: {user.phone_number}')

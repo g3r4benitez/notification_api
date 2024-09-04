@@ -1,58 +1,36 @@
 import json
-from sqlalchemy.exc import IntegrityError
-from fastapi_sqlalchemy import db
+from sqlmodel import Session, select
 
-from app.models import user as models
 from app.models.user import User
-from app.models.orm import user as orm
-from app.exceptions.general_exeptions import ConflictExeption
+from app.core.database import engine
 
 
-def get(_id: int):
-    return db.session.query(orm.User).filter(orm.User.id == _id).first()
+class UserRepository:
 
+    @staticmethod
+    def get_user(user_id: int) -> User | None:
+        with Session(engine) as session:
+            user =  session.get(User, user_id)
+            return user
 
-def create(user: models.User):
-    try:
-        entity = orm.User(**user.dict())
-        db.session.add(entity)
-        db.session.commit()
-        return entity
-    except IntegrityError as error:
-        raise ConflictExeption("Email in use")
+    def create_user(self, user: User):
+        with Session(engine) as session:
+            session.add(user)
+            session.commit()
+            session.refresh(user)
+        return user
 
+    @staticmethod
+    def get_users():
+        with Session(engine) as session:
+            statement = select(User)
+            results = session.exec(statement)
+            return results.all()
 
-def get(email: str):
-    return db.session.query(orm.User).filter(orm.User.email == email).first()
+    @staticmethod
+    def get_users_from_json():
+        with open('app/data/users.json', 'r') as file:
+            data = json.load(file)
+            return data['users']
 
-
-def getall():
-    return db.session.query(orm.User).all()
-
-
-def get_users_by_category(category_id):
-    # Here I have to return users related with categories
-    # todo: resolve filter by category_id
-    return db.session.query(orm.User).all()
-
-def get_users() -> [User]:
-    with open('app/data/users.json', 'r') as file:
-        data = json.load(file)
-        return data['users']
-
-
-
-    
-
-
-def update(email: str, obj_user: models.User):
-    user = db.session.query(orm.User).filter(orm.User.email == email).first()
-    user.name = obj_user.name
-    user.phone_number = obj_user.phone_number
-    user.channels = obj_user.channels
-    db.session.commit()
-    return user
-
-
-
-
+user_repository = UserRepository()
