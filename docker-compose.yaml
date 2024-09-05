@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: celery -A app.core.celery_worker worker --loglevel=info
+    command: celery -A app.core.celery_worker worker --loglevel=info -Q report_tabs
     volumes:
       - .:/code
     environment:
@@ -45,6 +45,17 @@ services:
       - REDIS_PASSWORD=my-password
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
+
+  postgres:
+    image: postgres:10.1-alpine
+    environment:
+      POSTGRES_USER: gilasw
+      POSTGRES_PASSWORD: gilasw
+      POSTGRES_DB: gilasw
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
 
 
 

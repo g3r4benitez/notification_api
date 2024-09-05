@@ -34,7 +34,7 @@ class UserRepository:
         return user
 
     @staticmethod
-    def get_users():
+    def get_users() -> [User]:
         with Session(engine) as session:
             statement = select(User)
             results = session.exec(statement)
