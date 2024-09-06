@@ -68,8 +68,15 @@ The applications logs are located in
 
 ### Working
 
-#### Test Api
-
+#### Try Api using curl
+```
+curl --location --request POST 'http://localhost:9009/api/notification' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "category": "films", 
+    "message": "Dec 24, world premiere of the movie Avatar 3"
+}'
+```
 
 #### Api Documentation
 Go to [http://localhost:9009/docs](http://localhost:9009/docs).

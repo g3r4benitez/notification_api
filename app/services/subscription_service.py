@@ -1,6 +1,8 @@
 from sqlmodel import Session, select
 from app.models.user import Subscription
 from app.core.database import engine
+from app.exceptions.general_exeptions import BadRequestException
+from app.core.logger import logger
 
 
 class SubscriptionService:
@@ -20,7 +22,12 @@ class SubscriptionService:
     def get_by_name(self, name: str):
         statement = select(Subscription).where(Subscription.name == name)
         results = self.session.exec(statement)
-        return results.first()
+        subscription = results.first()
+        if subscription:
+            return subscription
+        else:
+            logger.error(f"Subscription '{name}' doesn't exist")
+            raise BadRequestException(message=f"Subscription '{name}' doesn't exists")
 
 
 session = Session(engine)
