@@ -1,7 +1,13 @@
 # GilaSW - Code Challenge Gerardo Benitez
 This is a project created to resolve the code challenge. 
-The project have:
-a. One API created over Python using FastAPI
+The project is an API created using:
+
+* FastAPI
+* Docker
+* SQLModel (SqlAchemy)
+* RabbitMQ
+* Celery
+* PostgreSql / SQLite
 
 ## Requirements
 
@@ -27,4 +33,8 @@ docker-compose up
 
 ## Architecture
 
-![image info](./static/images/architecture.png)
+![image info](./static/images/arquitecture.png)
+
+## Database
+
+![image info](./static/images/database.png)
