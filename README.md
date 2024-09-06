@@ -1,4 +1,4 @@
-# GilaSW - Code Challenge Gerardo Benitez
+# GilaSW (Notification API) - Code Challenge Gerardo Benitez
 This is a project created to resolve the code challenge. 
 The project is an API created using:
 
