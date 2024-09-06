@@ -16,22 +16,16 @@ from app.services.channel_service import channel_service
 from app.services.subscription_service import subscription_service
 from app.core.logger import logger
 
-
-
 def init(app: FastAPI):
     """Load 3rd parties libs init config, After FastApi"""
     app.containers = start_containers()
     __fill_db()
-
-
-
 
 def __fill_db():
     channels_json = InitializerService.get_channels_from_json()
 
     for channel_json in channels_json:
         channel = channel_service.get(_id=channel_json['id'])
-        logger.info(channel)
         if channel is None:
             channel = Channel()
             channel.id = channel_json['id']
@@ -41,7 +35,6 @@ def __fill_db():
 
 
     subscriptions_json = InitializerService.get_subscriptions_from_json()
-    logger.info(subscriptions_json)
     for subscriptions_json in subscriptions_json:
         subscription = subscription_service.get(_id=subscriptions_json['id'])
         if subscription is None:

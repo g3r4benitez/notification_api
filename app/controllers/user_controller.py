@@ -6,13 +6,17 @@ from app.models.user import User
 from app.models.user import Subscription
 from app.services.user_service import UserService
 from app.core.database import get_session
+from app.exceptions.general_exeptions import InternalServerError
 
 router = APIRouter()
 
 @router.post("/users/", response_model=User)
 def create_user(user: User, session: Session = Depends(get_session)):
     user_service = UserService(session)
-    return user_service.create_user(user)
+    try:
+        return user_service.create_user(user)
+    except Exception as e:
+        raise InternalServerError(message="Can't create user")
 
 @router.post("/users/{user_id}/subscriptions/{subscription_id}/")
 def add_subscription_to_user(user_id: int, subscription_id: int, session: Session = Depends(get_session)):

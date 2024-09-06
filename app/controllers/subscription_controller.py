@@ -7,13 +7,13 @@ from app.core.database import get_session
 
 router = APIRouter()
 
-@router.post("/subscription/", response_model=Subscription)
+@router.post("", response_model=Subscription)
 def create_subscription(subscription: Subscription, session: Session = Depends(get_session)):
     subscription_service = SubscriptionService(session)
     return subscription_service.create_subscription(subscription)
 
-@router.get("/subscription/{channel_id}", response_model=Subscription)
-def create_channel(channel_id: int, session: Session = Depends(get_session)):
+@router.get("/{subscription_id}", response_model=Subscription)
+def create_channel(subscription_id: int, session: Session = Depends(get_session)):
     subscription_service = SubscriptionService(session)
-    return subscription_service.get(channel_id)
+    return subscription_service.get(subscription_id)
 

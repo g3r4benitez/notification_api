@@ -10,6 +10,9 @@ class UserService:
         self.session = session
 
     def create_user(self, user: User) -> User:
+        if user.id == 0:
+            user.id = None
+
         self.session.add(user)
         self.session.commit()
         self.session.refresh(user)

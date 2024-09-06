@@ -1,4 +1,4 @@
-from sqlmodel import Session
+from sqlmodel import Session, select
 from app.models.user import Channel
 from app.core.database import engine
 
@@ -15,6 +15,11 @@ class ChannelService:
     def get(self, _id):
         obj = self.session.get(Channel, _id)
         return obj
+
+    def get_all(self):
+        statement = select(Channel)
+        results = self.session.exec(statement)
+        return results.all()
 
 
 session = Session(engine)
