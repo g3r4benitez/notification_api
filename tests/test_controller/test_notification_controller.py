@@ -19,7 +19,7 @@ def user_repository(mocker):
 
 def test_send_notification(client, user_repository, mocker):
     user = User(id=1, name="Test User", email="test@example.com", phone_number=1133993344, channels='sms', subscribed = 'films')
-    user_repository.get_users.return_value = [user]
+    user_repository.get_all.return_value = [user]
     mock_send_notification_task = mocker.patch("app.controllers.notification_controller.send_notification_task.delay")
     response = client.post("/api/notification",json = {"category": "films","message": "hola mundo"} )
     assert response.status_code == 201

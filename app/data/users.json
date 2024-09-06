@@ -1,19 +1,47 @@
 {
-"users": [{
+  "channels": [
+    {
+      "id":1,
+      "name": "sms"
+    },
+    {
+      "id":2,
+      "name": "email"
+    },
+    {
+      "id":3,
+      "name": "push"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": 1,
+      "name": "sport"
+    },{
+      "id": 2,
+      "name": "finance"
+    },{
+      "id": 3,
+      "name": "films"
+    }
+
+  ],
+
+  "users": [{
   "id": 1,
   "name": "Juan Carlos",
   "email": "juancarlos@gilasw.com",
   "phone_number": 1123993344,
-  "subscribed": ["sports", "finance", "films"],
-  "channels": ["sms", "email"]
+  "subscriptions": [1,2,3],
+  "channels": [1,2]
 },
   {
   "id": 2,
   "name": "Maria Clara",
   "email": "maria.clara@gilasw.com",
   "phone_number": 1123993345,
-  "subscribed": ["sports"],
-  "channels": ["sms", "push"]
+  "subscriptions": [1,2],
+  "channels": [2,3]
 }
 ]
 }

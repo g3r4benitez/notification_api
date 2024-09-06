@@ -3,8 +3,8 @@ from logging.handlers import RotatingFileHandler
 import sys
 
 # Principal Setting for logger
-logger = logging.getLogger("my_fastapi_app")
-logger.setLevel(logging.INFO)  # Puedes cambiar el nivel a DEBUG, WARNING, etc.
+logger = logging.getLogger("challenge_notifications")
+logger.setLevel(logging.DEBUG)
 
 # Log format
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")

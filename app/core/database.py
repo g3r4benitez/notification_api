@@ -1,7 +1,7 @@
 import os
 from sqlmodel import create_engine, Session, SQLModel
 
-from app.models.user import User
+from app.models.user import User, Channel, Subscription
 
 SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
 
