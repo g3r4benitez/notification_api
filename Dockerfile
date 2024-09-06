@@ -1,12 +1,14 @@
 FROM python:3.9
 
-EXPOSE 8000
+EXPOSE 9009
 
 WORKDIR /code
 
 # Install requirements.txt
 COPY ./requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./.env .
+RUN python -m pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 COPY ./app app
 
