@@ -8,6 +8,9 @@ SQLALCHEMY_DATABASE_URL = os.environ.get("DB_URL")
 engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 
 def init_db():
+    print("==================================================================================================")
+    print("=========  INITIALIZATING DATABASE ===============================================================")
+    print("==================================================================================================")
     print("Executing init db")
     SQLModel.metadata.create_all(engine)
 

@@ -1,6 +1,8 @@
-# GilaSW (Notification API) - Code Challenge Gerardo Benitez
-This is a project created to resolve the code challenge. 
-The project is an API created using:
+# Notification API - Gerardo Benitez
+
+This is a prove of concept to send notifications to subscribed user using differents channels
+
+## Technologies
 
 * FastAPI
 * Docker
